@@ -1,2 +1,0 @@
-# webshop-pagination
-react-js
