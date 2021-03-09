@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getCompanies, getPage, setPage } from "../actions";
+import { getCompanies, getPageItems, setPage, setBasket } from "../actions";
 import { Loading, List } from "../components";
 import "../style/Pagination.css";
 const Page = (props) => {
@@ -8,11 +8,12 @@ const Page = (props) => {
 
   useEffect(() => {
     props.getCompanies();
-    props.getPage(1);
+    props.getPageItems(1);
   }, []);
 
   useEffect(() => {
-    props.getPage(currentPage);
+    //Tersi bir logic olabilir data çekilip sonra page değiştirilir?
+    props.getPageItems(currentPage);
   }, [currentPage]);
 
   return (
@@ -23,6 +24,7 @@ const Page = (props) => {
           items={props.items}
           currentPage={currentPage}
           setPage={props.setPage}
+          setBasket={props.setBasket}
         />
       )}
     </div>
@@ -31,7 +33,8 @@ const Page = (props) => {
 const mapDispatchToProps = {
   getCompanies,
   setPage,
-  getPage,
+  getPageItems,
+  setBasket,
 };
 
 const mapStateToProps = ({

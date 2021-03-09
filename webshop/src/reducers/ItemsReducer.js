@@ -1,8 +1,4 @@
-import {
-  PAGE_CHANGE_START,
-  ITEMS_RECEIVED,
-  ITEMS_FAILED,
-} from "../actions/types";
+import { ITEMS_START, ITEMS_RECEIVED, ITEMS_FAILED } from "../actions/types";
 
 const INITIAL_STATE = {
   loading: true,
@@ -11,7 +7,7 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case PAGE_CHANGE_START:
+    case ITEMS_START:
       return { ...state, loading: true };
     case ITEMS_RECEIVED:
       return { ...state, items: action.payload, loading: false };

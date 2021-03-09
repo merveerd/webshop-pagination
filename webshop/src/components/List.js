@@ -6,14 +6,10 @@ const List = (props) => {
   return (
     <div>
       {props.items.map((item, index) => {
-        return <Product item={item} key={index} />;
+        return <Product item={item} key={index} setBasket={props.setBasket} />;
       })}
 
-      <ListPagination
-        itemsCount={16}
-        currentPage={props.currentPage}
-        setPage={props.setPage}
-      />
+      <ListPagination currentPage={props.currentPage} setPage={props.setPage} />
     </div>
   );
 };

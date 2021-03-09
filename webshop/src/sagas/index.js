@@ -4,7 +4,7 @@ import {
   COMPANIES_START,
   COMPANIES_RECEIVED,
   COMPANIES_FAILED,
-  PAGE_CHANGE_START,
+  ITEMS_START,
   ITEMS_RECEIVED,
   ITEMS_FAILED,
 } from "../actions/types";
@@ -22,7 +22,7 @@ function* fetchCompanies() {
   }
 }
 
-function* fetchPage(data) {
+function* fetchPageItems(data) {
   try {
     const response = yield call(requestItems, data.payload);
 
@@ -35,7 +35,7 @@ function* fetchPage(data) {
 
 function* actionWatcher() {
   yield takeLatest(COMPANIES_START, fetchCompanies);
-  yield takeLatest(PAGE_CHANGE_START, fetchPage);
+  yield takeLatest(ITEMS_START, fetchPageItems);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

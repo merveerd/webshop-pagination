@@ -1,22 +1,22 @@
-import {
-  COMPANIES_START,
-  PAGE_CHANGE_START,
-  PAGE_CHANGE_SUCCESS,
-} from "./types";
+import { COMPANIES_START, PAGE_CHANGE, ITEMS_START, BASKET_ADD } from "./types";
 
 export const getCompanies = () => ({
   type: COMPANIES_START,
 });
 
-export const getPage = (currentPage) => {
-  //getItems olabilir
+export const getPageItems = (currentPage) => {
   return {
-    type: PAGE_CHANGE_START,
+    type: ITEMS_START,
     payload: currentPage,
   };
 };
 
 export const setPage = (currentPage) => ({
-  type: PAGE_CHANGE_SUCCESS,
+  type: PAGE_CHANGE,
   payload: currentPage,
+});
+
+export const setBasket = (addedItem) => ({
+  type: BASKET_ADD,
+  payload: addedItem,
 });
