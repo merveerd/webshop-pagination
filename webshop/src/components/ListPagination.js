@@ -2,7 +2,7 @@ import React from "react";
 
 const ListPagination = (props) => {
   const range = [];
-  for (let i = 1; i <= 20; i++) {
+  for (let i = 1; i <= 100; i++) {
     range.push(i);
   }
 

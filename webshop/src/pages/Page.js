@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getCompanies, getPageItems, setPage, setBasket } from "../actions";
-import { Loading, List } from "../components";
-import "../style/Pagination.css";
+import { Loading, List, Header, ItemType } from "../components";
 const Page = (props) => {
   const { currentPage } = props;
 
@@ -18,18 +17,29 @@ const Page = (props) => {
 
   return (
     <div>
-      <Loading loading={props.loading} />
+      <Header />
       {props.items.length > 0 && (
-        <List
-          items={props.items}
-          currentPage={currentPage}
-          setPage={props.setPage}
-          setBasket={props.setBasket}
-        />
+        <div style={styles.mainContainer}>
+          <List
+            items={props.items}
+            currentPage={currentPage}
+            setPage={props.setPage}
+            setBasket={props.setBasket}
+          />
+        </div>
       )}
     </div>
   );
 };
+
+const styles = {
+  mainContainer: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+};
+
 const mapDispatchToProps = {
   getCompanies,
   setPage,
