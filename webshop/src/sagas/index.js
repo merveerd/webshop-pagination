@@ -7,9 +7,16 @@ import {
   ITEMS_START,
   ITEMS_RECEIVED,
   ITEMS_FAILED,
+  SELECTED_ITEMS_START,
+  SELECTED_ITEMS_RECEIVED,
+  SELECTED_ITEMS_FAILED,
 } from "../actions/types";
 
-import { requestCompanies, requestItems } from "../actions/APIService";
+import {
+  requestCompanies,
+  requestItems,
+  requestSelectedItems,
+} from "../actions/APIService";
 
 function* fetchCompanies() {
   try {
@@ -33,9 +40,21 @@ function* fetchPageItems(data) {
   }
 }
 
+function* fetchSelectedItems(data) {
+  try {
+    const response = yield call(requestSelectedItems, data.payload);
+
+    yield put({ type: SELECTED_ITEMS_RECEIVED, payload: response.data });
+  } catch (err) {
+    console.log("err", err);
+    yield put({ type: SELECTED_ITEMS_FAILED });
+  }
+}
+
 function* actionWatcher() {
   yield takeLatest(COMPANIES_START, fetchCompanies);
   yield takeLatest(ITEMS_START, fetchPageItems);
+  yield takeLatest(SELECTED_ITEMS_START, fetchSelectedItems);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);

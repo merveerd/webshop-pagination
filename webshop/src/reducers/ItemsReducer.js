@@ -1,8 +1,16 @@
-import { ITEMS_START, ITEMS_RECEIVED, ITEMS_FAILED } from "../actions/types";
+import {
+  ITEMS_START,
+  ITEMS_RECEIVED,
+  ITEMS_FAILED,
+  SELECTED_ITEMS_START,
+  SELECTED_ITEMS_RECEIVED,
+  SELECTED_ITEMS_FAILED,
+} from "../actions/types";
 
 const INITIAL_STATE = {
   loading: true,
-  items: [],
+  allItems: [],
+  selectedItems: [], //mugs or shirts
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -10,9 +18,17 @@ const reducer = (state = INITIAL_STATE, action) => {
     case ITEMS_START:
       return { ...state, loading: true };
     case ITEMS_RECEIVED:
-      return { ...state, items: action.payload, loading: false };
+      return { ...state, allItems: action.payload, loading: false };
     case ITEMS_FAILED:
       return { ...state, loading: false };
+    case SELECTED_ITEMS_START:
+      return { ...state, loading: true };
+    case SELECTED_ITEMS_RECEIVED:
+      return { ...state, selectedItems: action.payload, loading: false };
+
+    case SELECTED_ITEMS_FAILED:
+      return { ...state, loading: false };
+
     default:
       return state;
   }

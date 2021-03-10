@@ -1,38 +1,31 @@
 import React from "react";
+import styled from "styled-components";
+
+const TypeButton = styled.button`
+  background-color: ${(props) => (props.selected ? "#1EA4CE" : "#F2F0FD")};
+  color: ${(props) => (props.selected ? "#F2F0FD" : "#1EA4CE")};
+  display: flex;
+  justify-content: center;
+  width: 3.6rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.2rem;
+  margin: 0.3rem;
+  align-items: center;
+  font-family: Open Sans;
+  outline: none;
+`;
 
 const ItemType = (props) => {
+  let active = false;
+  if (props.type === props.selected) {
+    active = true;
+  }
   return (
-    <div style={styles.itemType} onClick={props.onClick}>
-      <p style={styles.type}>{props.type}</p>
-    </div>
+    <TypeButton selected={active} value={props.type} onClick={props.onClick}>
+      {props.type}
+    </TypeButton>
   );
-};
-
-const styles = {
-  itemType: {
-    display: "flex",
-    justifyContent: "center",
-    backgroundColor: "#F2F0FD",
-    fontFamily: "Open Sans",
-    fontWeight: "bold",
-    fontSize: "0.5rem",
-    borderRadius: "0.2rem",
-    width: "3.6rem",
-    height: "2rem",
-    margin: "0.3rem",
-  },
-
-  itemTypeActive: {
-    backgroundColor: "#1EA4CE",
-  },
-
-  type: {
-    alignSelf: "center",
-    color: "#1EA4CE",
-    fontSize: "0.7rem",
-    LineHeight: "18px",
-    fontFamily: "Open Sans",
-  },
 };
 
 export { ItemType };
