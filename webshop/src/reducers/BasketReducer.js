@@ -1,16 +1,8 @@
-import { BASKET_ADD, BASKET_REDUCE, BASKET_REMOVE } from "../actions/types";
+import { BASKET_ADD, BASKET_REDUCE } from "../actions/types";
 
 const INITIAL_STATE = {
   basket: [],
 };
-
-// const indexFinder = (state = INITIAL_STATE) => {
-//     let refBasket = [...state.basket];
-//     let updatedProductIndex = refBasket.findIndex(
-//       (product) => product.name === action.payload.name
-//     );
-
-// }
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -33,29 +25,34 @@ const reducer = (state = INITIAL_STATE, action) => {
 
       return { ...state, basket: refBasket };
 
-    // case BASKET_REDUCE:
-    //   let refBasket = [...state.basket];
-    //   let updatedProductIndex = refBasket.findIndex(
-    //     (product) => product.name === action.payload.name
-    //   );
+    case BASKET_REDUCE:
+      let refRemovingBasket = [...state.basket];
+      let removingProductIndex = refRemovingBasket.findIndex(
+        (product) => product.name === action.payload.name
+      );
 
-    //   if (updatedProductIndex > -1) {
-    //     if (updatedProduct.quantity === 1) {
-    //       refBasket.splice(updatedProductIndex, 1);
-    //     } else {
-    //       let updatedProduct = refBasket[updatedProductIndex];
+      if (removingProductIndex > -1) {
+        //in case of the quantity is already zero in a moment
+        let decreasedProduct = refRemovingBasket[removingProductIndex];
+        if (decreasedProduct.quantity === 1) {
+          refRemovingBasket.splice(removingProductIndex, 1);
+        } else {
+          refRemovingBasket[removingProductIndex] = {
+            ...action.payload,
+            quantity: decreasedProduct.quantity - 1,
+          };
+        }
+      }
 
-    //       refBasket[updatedProductIndex] = {
-    //         ...action.payload,
-    //         quantity: updatedProduct.quantity - 1,
-    //       };
-    //     }
-    //   }
-
-    //   return { ...state, basket: refBasket };
+      return { ...state, basket: refRemovingBasket };
 
     default:
       return state;
   }
 };
+
+export const totalPrice = (state) => {
+  return state.basket.reduce((acc, product) => acc + product.price, 0);
+};
+
 export default reducer;

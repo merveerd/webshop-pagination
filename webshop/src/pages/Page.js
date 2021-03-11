@@ -1,80 +1,74 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import {
   getCompanies,
-  getPageItems,
+  getPageDefaultItems,
   getSelectedItems,
   setPage,
-  setBasket,
+  setItemType,
+  addBasket,
+  reduceBasket,
 } from "../actions";
-import { List, Header, ItemType } from "../components";
+import { List, Header, ItemType, Basket } from "../components";
+import { totalPrice } from "../reducers/BasketReducer";
+import { currentPage, currentPageItems } from "../reducers/ItemsReducer";
 const Page = (props) => {
-  const { currentPage, selectedItems, allItems } = props;
-  const [currentSelectedType, setCurrentSelectedType] = useState("");
-  const [currentPageItems, setCurrentPageItems] = useState([]);
+  const {
+    pageCount,
+    currentPage,
+    currentPageItems,
+    selectedType,
+    defaultItems,
+    basket,
+    totalPrice,
+    addBasket,
+    reduceBasket,
+  } = props;
+
   useEffect(() => {
     props.getCompanies();
-    props.getPageItems(1);
+    props.getPageDefaultItems(1);
   }, []);
 
   useEffect(() => {
-    if (selectedItems[0]) {
-      selectedItems[0].itemType === "mug"
-        ? setCurrentSelectedType("mug")
-        : setCurrentSelectedType("shirt");
-
-      const pageItems = selectedItems.slice(
-        (currentPage - 1) * 16,
-        currentPage * 16
-      );
-      setCurrentPageItems(pageItems);
-    }
-  }, [selectedItems]);
-
-  useEffect(() => {
-    //data yüklenemezse data yüklenemedi uyarısı ver ekranda
-    if (currentSelectedType) {
-      props.getSelectedItems({
-        selectedType: currentSelectedType,
-        currentPage,
-      });
-      return;
-    }
-    props.getPageItems(currentPage);
+    !selectedType && props.getPageDefaultItems(currentPage);
   }, [currentPage]);
 
-  useEffect(() => {
-    setCurrentPageItems(allItems);
-  }, [allItems]);
+  const chooseItemType = useCallback((e) => {
+    const currentSelectedType = e.target.value;
 
-  const chooseItemType = (e) => {
-    const selectedType = e.target.value;
     if (currentSelectedType === selectedType) {
-      setCurrentSelectedType("");
-      props.getPageItems(1);
-      //1. sayfaya clicklemiş gibi olmalı altta da.
+      props.setItemType("");
+      props.getPageDefaultItems(1);
       return;
+    } else {
+      props.getSelectedItems({
+        selectedType: currentSelectedType,
+        currentPage: 1,
+      });
     }
-    props.getSelectedItems({ selectedType, currentPage: 1 });
-  };
+    props.setPage({ selected: 0 }); //simulate react-paginate component event
+  });
 
   return (
-    <div>
-      <Header />
-      {allItems.length > 0 && (
+    <>
+      <Header totalPrice={totalPrice.toFixed(2)} />
+      {defaultItems.length > 0 && (
         <div style={styles.mainContainer}>
+          <Basket />
           <div style={styles.productSectionWrapper}>
+            <h4 style={styles.title}>Products</h4>
             <div style={styles.typeContainer}>
               <ItemType
                 type="mug"
-                selected={currentSelectedType}
+                selected={selectedType}
                 onClick={(e) => {
                   chooseItemType(e);
                 }}
               />
               <ItemType
                 type="shirt"
-                selected={currentSelectedType}
+                selected={selectedType}
                 onClick={(e) => {
                   chooseItemType(e);
                 }}
@@ -84,13 +78,20 @@ const Page = (props) => {
             <List
               items={currentPageItems}
               currentPage={currentPage}
+              pageCount={pageCount}
               setPage={props.setPage}
-              setBasket={props.setBasket}
+              addBasket={addBasket}
             />
           </div>
+          <Basket
+            basket={basket}
+            addBasket={addBasket}
+            totalPrice={totalPrice.toFixed(2)}
+            reduceBasket={reduceBasket}
+          />
         </div>
       )}
-    </div>
+    </>
   );
 };
 
@@ -99,19 +100,28 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     flexDirection: "row",
+    marginTop: "3vw",
   },
   productSectionWrapper: {
-    width: "45%",
+    width: "44%",
     display: "flex",
     flexDirection: "column",
-    marginTop: "5vw",
+    marginLeft: "2%",
+    marginRight: "2%",
+  },
 
-    // padding: "20px",
+  title: {
+    color: "#6F6F6F",
+    margin: 0,
+    fontFamily: "Open Sans",
+    fontWeight: "normal",
+    fontSize: "20px",
+    letterSpacing: "0.25px",
   },
 
   typeContainer: {
-    marginTop: "0.8rem",
-    marginBottom: "0.8rem",
+    marginTop: "0.4rem",
+    marginBottom: "0.4rem",
     display: "flex",
     flexDirection: "row",
   },
@@ -120,20 +130,32 @@ const styles = {
 const mapDispatchToProps = {
   getCompanies,
   setPage,
-  getPageItems,
+  setItemType,
+  getPageDefaultItems,
   getSelectedItems,
-  setBasket,
+  addBasket,
+  reduceBasket,
 };
 
 const mapStateToProps = ({
   companiesResponse,
   itemsResponse,
-  pageResponse,
+  basketResponse,
 }) => {
   const { companies } = companiesResponse;
-  const { allItems, selectedItems, loading } = itemsResponse;
-  const { currentPage } = pageResponse;
+  const { defaultItems, selectedType, pageCount, loading } = itemsResponse;
+  const { basket } = basketResponse;
 
-  return { companies, allItems, selectedItems, loading, currentPage };
+  return {
+    companies,
+    defaultItems,
+    loading,
+    selectedType,
+    pageCount,
+    currentPage: currentPage(itemsResponse),
+    currentPageItems: currentPageItems(itemsResponse),
+    basket,
+    totalPrice: totalPrice(basketResponse),
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Page);

@@ -7,13 +7,13 @@ const Product = (props) => {
       <div style={styles.imageContainer}>
         <div style={styles.image}></div>
       </div>
-      <p style={styles.price}>₺{props.item.price}</p>
+      <p style={styles.price}>₺ {props.item.price}</p>
       <p style={styles.name}>{name}</p>
 
       <img src={props.item.thumbnailUrl} alt="" />
       <Button
         onClick={() => {
-          props.setBasket({ price: props.item.price, name: props.item.name });
+          props.addBasket({ price: props.item.price, name: props.item.name });
         }}
         text="Add"
       />
@@ -49,12 +49,15 @@ const styles = {
     color: "#1EA4CE",
     fontFamily: "Helvetica",
     margin: "4%",
+    fontWeight: "700",
+    fontSize: "0.9rem",
   },
 
   name: {
     lineHeight: "125%",
     width: "100%",
-    height: "7vh",
+    height: "6.5vh",
+    fontSize: "0.9rem",
   },
 };
 

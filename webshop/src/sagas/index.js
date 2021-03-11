@@ -14,7 +14,7 @@ import {
 
 import {
   requestCompanies,
-  requestItems,
+  requestDefaultItems,
   requestSelectedItems,
 } from "../actions/APIService";
 
@@ -31,9 +31,15 @@ function* fetchCompanies() {
 
 function* fetchPageItems(data) {
   try {
-    const response = yield call(requestItems, data.payload);
+    const response = yield call(requestDefaultItems, data.payload);
 
-    yield put({ type: ITEMS_RECEIVED, payload: response.data });
+    yield put({
+      type: ITEMS_RECEIVED,
+      payload: {
+        data: response.data,
+        dataCount: response.headers["x-total-count"],
+      },
+    });
   } catch (err) {
     console.log("err", err);
     yield put({ type: ITEMS_FAILED });
@@ -44,7 +50,13 @@ function* fetchSelectedItems(data) {
   try {
     const response = yield call(requestSelectedItems, data.payload);
 
-    yield put({ type: SELECTED_ITEMS_RECEIVED, payload: response.data });
+    yield put({
+      type: SELECTED_ITEMS_RECEIVED,
+      payload: {
+        data: response.data,
+        dataCount: response.data.length,
+      },
+    });
   } catch (err) {
     console.log("err", err);
     yield put({ type: SELECTED_ITEMS_FAILED });

@@ -1,18 +1,22 @@
+import React, { memo } from "react";
 import { Product } from "./Product";
 import ListPagination from "./ListPagination";
-import React from "react";
 
-const List = (props) => {
+const List = memo((props) => {
   return (
     <section style={styles.list}>
       {props.items.map((item, index) => {
-        return <Product item={item} key={index} setBasket={props.setBasket} />;
+        return <Product item={item} key={index} addBasket={props.addBasket} />;
       })}
 
-      <ListPagination currentPage={props.currentPage} setPage={props.setPage} />
+      <ListPagination
+        pageCount={props.pageCount}
+        setPage={props.setPage}
+        currentPage={props.currentPage}
+      />
     </section>
   );
-};
+});
 
 const styles = {
   list: {

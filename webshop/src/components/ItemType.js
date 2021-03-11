@@ -14,6 +14,9 @@ const TypeButton = styled.button`
   align-items: center;
   font-family: Open Sans;
   outline: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const ItemType = (props) => {

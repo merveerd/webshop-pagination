@@ -1,33 +1,26 @@
 import React from "react";
+import "../style/Pagination.css";
+import ReactPaginate from "react-paginate";
 
 const ListPagination = (props) => {
-  const range = [];
-  for (let i = 1; i <= 100; i++) {
-    range.push(i);
-  }
-
   return (
-    <nav>
-      <ul className="pagination">
-        {range.map((pageNumber) => {
-          const isCurrent = pageNumber === props.currentPage;
-          const onClick = (event) => {
-            event.preventDefault();
-
-            props.setPage(pageNumber);
-          };
-          return (
-            <li
-              className={isCurrent ? "page-number active" : "page-number"}
-              onClick={onClick}
-              key={pageNumber.toString()}
-            >
-              <a href="">{pageNumber}</a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+    <ReactPaginate
+      previousLabel={"<- Prev"}
+      nextLabel={"Next ->"}
+      breakLabel={"..."}
+      breakClassName={"break-me"}
+      pageCount={props.pageCount}
+      initialPage={0}
+      forcePage={props.currentPage - 1} //index based
+      marginPagesDisplayed={4}
+      pageRangeDisplayed={4}
+      onPageChange={props.setPage}
+      containerClassName={"pagination"}
+      subContainerClassName={"pages pagination"}
+      activeClassName={"active"}
+      previousClassName={"prev"}
+      nextClassName={"next"}
+    />
   );
 };
 
