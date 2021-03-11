@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 import {
   getCompanies,
   getPageDefaultItems,
@@ -9,9 +10,24 @@ import {
   addBasket,
   reduceBasket,
 } from "../actions";
-import { List, Header, ItemType, Basket } from "../components";
+import { List, Header, ItemTypes, Basket, MainTitle } from "../components";
 import { totalPrice } from "../reducers/BasketReducer";
 import { currentPage, currentPageItems } from "../reducers/ItemsReducer";
+
+const MainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-top: 3vw;
+`;
+
+const ProductSectionWrapper = styled.div`
+  width: 44%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 2%;
+  margin-right: 2%;
+`;
 const Page = (props) => {
   const {
     pageCount,
@@ -40,7 +56,6 @@ const Page = (props) => {
     if (currentSelectedType === selectedType) {
       props.setItemType("");
       props.getPageDefaultItems(1);
-      return;
     } else {
       props.getSelectedItems({
         selectedType: currentSelectedType,
@@ -54,26 +69,11 @@ const Page = (props) => {
     <>
       <Header totalPrice={totalPrice.toFixed(2)} />
       {defaultItems.length > 0 && (
-        <div style={styles.mainContainer}>
+        <MainContainer>
           <Basket />
-          <div style={styles.productSectionWrapper}>
-            <h4 style={styles.title}>Products</h4>
-            <div style={styles.typeContainer}>
-              <ItemType
-                type="mug"
-                selected={selectedType}
-                onClick={(e) => {
-                  chooseItemType(e);
-                }}
-              />
-              <ItemType
-                type="shirt"
-                selected={selectedType}
-                onClick={(e) => {
-                  chooseItemType(e);
-                }}
-              />
-            </div>
+          <ProductSectionWrapper>
+            <MainTitle />
+            <ItemTypes onClick={chooseItemType} selected={props.selectedType} />
 
             <List
               items={currentPageItems}
@@ -82,49 +82,17 @@ const Page = (props) => {
               setPage={props.setPage}
               addBasket={addBasket}
             />
-          </div>
+          </ProductSectionWrapper>
           <Basket
             basket={basket}
             addBasket={addBasket}
             totalPrice={totalPrice.toFixed(2)}
             reduceBasket={reduceBasket}
           />
-        </div>
+        </MainContainer>
       )}
     </>
   );
-};
-
-const styles = {
-  mainContainer: {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "row",
-    marginTop: "3vw",
-  },
-  productSectionWrapper: {
-    width: "44%",
-    display: "flex",
-    flexDirection: "column",
-    marginLeft: "2%",
-    marginRight: "2%",
-  },
-
-  title: {
-    color: "#6F6F6F",
-    margin: 0,
-    fontFamily: "Open Sans",
-    fontWeight: "normal",
-    fontSize: "20px",
-    letterSpacing: "0.25px",
-  },
-
-  typeContainer: {
-    marginTop: "0.4rem",
-    marginBottom: "0.4rem",
-    display: "flex",
-    flexDirection: "row",
-  },
 };
 
 const mapDispatchToProps = {

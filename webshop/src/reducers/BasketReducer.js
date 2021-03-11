@@ -52,7 +52,10 @@ const reducer = (state = INITIAL_STATE, action) => {
 };
 
 export const totalPrice = (state) => {
-  return state.basket.reduce((acc, product) => acc + product.price, 0);
+  return state.basket.reduce(
+    (acc, product) => acc + product.price * product.quantity,
+    0
+  );
 };
 
 export default reducer;

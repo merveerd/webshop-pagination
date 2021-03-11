@@ -1,64 +1,63 @@
-import React from "react";
+import React, { memo } from "react";
 import { Button } from "./Button";
-const Product = (props) => {
+import styled from "styled-components";
+
+const ProductWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 9vw;
+  margin: 0.8rem;
+  box-sizing: border-box;
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9vw;
+  height: 9vw;
+  background-color: #fefefe;
+  border: 1.2px solid #f3f0fe;
+  border-radius: 0.6rem;
+`;
+
+const Image = styled.img`
+  background-color: #c4c4c4;
+  width: 75%;
+  height: 75%;
+`;
+
+const Price = styled.p`
+  color: #1ea4ce;
+  font-family: Helvetica;
+  margin: 4%;
+  font-weight: 700;
+  font-size: 0.9rem;
+`;
+
+const Name = styled.p`
+  line-height: 125%;
+  width: 100%;
+  height: 6.5vh;
+  font-size: 0.9rem;
+`;
+const Product = memo((props) => {
   let name = props.item.slug.replaceAll("-", " ");
   return (
-    <div style={styles.product} key={props.item.slug}>
-      <div style={styles.imageContainer}>
-        <div style={styles.image}></div>
-      </div>
-      <p style={styles.price}>₺ {props.item.price}</p>
-      <p style={styles.name}>{name}</p>
-
-      <img src={props.item.thumbnailUrl} alt="" />
+    <ProductWrapper>
+      <ImageContainer>
+        <Image></Image>
+      </ImageContainer>
+      <Price>₺ {props.item.price}</Price>
+      <Name>{name}</Name>
       <Button
         onClick={() => {
           props.addBasket({ price: props.item.price, name: props.item.name });
         }}
         text="Add"
       />
-    </div>
+    </ProductWrapper>
   );
-};
-
-const styles = {
-  product: {
-    display: "flex",
-    flexDirection: "column",
-    width: "9vw",
-    margin: "0.8rem",
-    boxSizing: "border-box",
-  },
-
-  imageContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "9vw",
-    height: "9vw",
-    backgroundColor: "#FEFEFE",
-    border: "1.17666px solid #F3F0FE",
-    borderRadius: "0.6rem",
-  },
-  image: {
-    backgroundColor: "#C4C4C4",
-    width: "75%",
-    height: "75%",
-  },
-  price: {
-    color: "#1EA4CE",
-    fontFamily: "Helvetica",
-    margin: "4%",
-    fontWeight: "700",
-    fontSize: "0.9rem",
-  },
-
-  name: {
-    lineHeight: "125%",
-    width: "100%",
-    height: "6.5vh",
-    fontSize: "0.9rem",
-  },
-};
+});
 
 export { Product };

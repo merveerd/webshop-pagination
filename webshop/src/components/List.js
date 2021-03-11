@@ -1,10 +1,17 @@
 import React, { memo } from "react";
 import { Product } from "./Product";
 import ListPagination from "./ListPagination";
+import styled from "styled-components";
 
+const ListWrapper = styled.section`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #fefefe;
+`;
 const List = memo((props) => {
   return (
-    <section style={styles.list}>
+    <ListWrapper>
       {props.items.map((item, index) => {
         return <Product item={item} key={index} addBasket={props.addBasket} />;
       })}
@@ -14,16 +21,8 @@ const List = memo((props) => {
         setPage={props.setPage}
         currentPage={props.currentPage}
       />
-    </section>
+    </ListWrapper>
   );
 });
 
-const styles = {
-  list: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap",
-    backgroundColor: "#FEFEFE",
-  },
-};
 export { List };
