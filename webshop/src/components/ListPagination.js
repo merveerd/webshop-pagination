@@ -24,4 +24,4 @@ const ListPagination = (props) => {
   );
 };
 
-export default ListPagination;
+export { ListPagination };

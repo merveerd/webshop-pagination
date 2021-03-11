@@ -10,7 +10,14 @@ import {
   addBasket,
   reduceBasket,
 } from "../actions";
-import { List, Header, ItemTypes, Basket, MainTitle } from "../components";
+import {
+  List,
+  ListPagination,
+  Header,
+  ItemTypes,
+  Basket,
+  MainTitle,
+} from "../components";
 import { totalPrice } from "../reducers/BasketReducer";
 import { currentPage, currentPageItems } from "../reducers/ItemsReducer";
 
@@ -74,13 +81,11 @@ const Page = (props) => {
           <ProductSectionWrapper>
             <MainTitle />
             <ItemTypes onClick={chooseItemType} selected={props.selectedType} />
-
-            <List
-              items={currentPageItems}
-              currentPage={currentPage}
+            <List items={currentPageItems} addBasket={addBasket} />
+            <ListPagination
               pageCount={pageCount}
               setPage={props.setPage}
-              addBasket={addBasket}
+              currentPage={props.currentPage}
             />
           </ProductSectionWrapper>
           <Basket
