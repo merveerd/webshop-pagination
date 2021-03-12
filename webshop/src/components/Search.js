@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const FilterWrapper = styled.div`
@@ -98,14 +98,36 @@ const CheckBox = styled.button`
 `;
 
 const Search = (props) => {
-  const data = Object.entries(props.data);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    setData(Object.entries(props.data));
+  }, [props.data]);
+
+  const [searchInput, setsearchInput] = useState("");
+
+  const handleSearchInput = (e) => {
+    const input = e.target.value;
+    setsearchInput(input);
+    if (input.length >= 2) {
+      const newData = Object.entries(props.data).filter((item) =>
+        item[0].toLowerCase().includes(input.toLowerCase())
+      );
+      setData(newData);
+    } else {
+      setData(Object.entries(props.data));
+    }
+  };
 
   return (
     <FilterWrapper>
       <Title> {props.areaTitle}</Title>
 
       <FilterMainArea>
-        <SearchBar placeholder=" Search Brand" />
+        <SearchBar
+          placeholder={props.placeholder}
+          value={searchInput}
+          onChange={handleSearchInput}
+        />
         <Results>
           {data.map((item, index) => {
             return (
@@ -120,7 +142,8 @@ const Search = (props) => {
                   ✓
                 </CheckBox>
                 <OptionName>
-                  {item[0].replaceAll("-", " ")} ({item[1]})
+                  {item[0].replaceAll("-", " ")}
+                  {props.showCount && <span> ({item[1]})</span>}
                 </OptionName>
               </OptionWrapper>
             );

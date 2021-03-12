@@ -36,10 +36,10 @@ export const setPage = (pageSelectionEvent) => {
   };
 };
 
-export const setItemType = (selectedType) => {
+export const setItemType = (itemType) => {
   return {
     type: SELECTED_TYPE_CHANGE,
-    payload: selectedType,
+    payload: itemType,
   };
 };
 

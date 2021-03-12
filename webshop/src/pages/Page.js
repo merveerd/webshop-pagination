@@ -53,7 +53,7 @@ const Page = (props) => {
     pageCount,
     currentPage,
     currentPageItems,
-    selectedType,
+    itemType,
     sortType,
     sortOrder,
     brand,
@@ -72,81 +72,68 @@ const Page = (props) => {
   }, []);
 
   useEffect(() => {
-    selectedType || sortType || brand || tag
+    itemType || sortType || brand || tag
       ? props.getSelectedItems({
-          selectedType,
+          itemType,
           sortType,
           sortOrder,
           currentPage,
           brand,
           tag,
         })
-      : props.getPageDefaultItems(currentPage); //can be in reducer with createSelector
+      : props.getPageDefaultItems(currentPage);
   }, [currentPage]);
 
-  //higher order function yap
-  const chooseItemType = (e) => {
+  const handleSelection = (e, parameter, parameterName) => {
     const selected = e.target.value;
+    const newParams = {
+      itemType,
+      sortType,
+      sortOrder,
+      brand,
+      tag,
+      currentPage: 1,
+    };
+    switch (parameterName) {
+      case "itemType":
+        selected === parameter
+          ? (newParams.itemType = "")
+          : (newParams.itemType = selected);
+        props.setItemType(newParams.itemType);
+        break;
+      case "brand":
+        selected === parameter
+          ? (newParams.brand = "")
+          : (newParams.brand = selected);
+        props.setBrand(newParams.brand);
+        break;
+      case "tag":
+        selected === parameter
+          ? (newParams.tag = "")
+          : (newParams.tag = selected);
+        props.setTag(newParams.tag);
+        break;
+    }
 
-    if (selected === selectedType) {
-      props.setItemType("");
+    if (
+      !newParams.itemType &&
+      !newParams.sortType &&
+      !newParams.brand &&
+      !newParams.tag
+    ) {
       props.getPageDefaultItems(1);
     } else {
-      props.setItemType(selected);
-
-      props.getSelectedItems({
-        selectedType: selected,
-        sortType,
-        sortOrder,
-        brand,
-        tag,
-        currentPage: 1,
-      });
+      props.getSelectedItems(newParams);
     }
+
     props.setPage({ selected: 0 }); //simulate react-paginate component event. Needs to be after setItemType considering useEffect on currentPage
   };
 
-  const handleBrandSearch = (e) => {
-    const selected = e.target.value;
+  const chooseItemType = (e) => handleSelection(e, itemType, "itemType");
 
-    if (selected === brand) {
-      props.setBrand("");
-      props.getPageDefaultItems(1);
-    } else {
-      props.setBrand(selected);
+  const handleBrandSearch = (e) => handleSelection(e, brand, "brand");
 
-      props.getSelectedItems({
-        selectedType,
-        sortType,
-        sortOrder,
-        brand: selected,
-        tag,
-        currentPage: 1,
-      });
-    }
-    props.setPage({ selected: 0 });
-  };
-
-  const handleTagSearch = (e) => {
-    const selected = e.target.value;
-
-    if (selected === tag) {
-      props.setTag("");
-      props.getPageDefaultItems(1);
-    } else {
-      props.setTag(selected);
-
-      props.getSelectedItems({
-        selectedType,
-        sortType,
-        sortOrder,
-        brand,
-        tag: selected,
-        currentPage: 1,
-      });
-    }
-    props.setPage({ selected: 0 });
-  };
+  const handleTagSearch = (e) => handleSelection(e, tag);
 
   return (
     <>
@@ -159,7 +146,7 @@ const Page = (props) => {
             getPageDefaultItems={props.getPageDefaultItems}
             setSortRule={props.setSortRule}
             setPage={props.setPage}
-            selectedType={selectedType}
+            itemType={itemType}
             brand={brand}
             tag={tag}
           />
@@ -170,12 +157,13 @@ const Page = (props) => {
             companies={companies}
             brand={brand}
             tag={tag}
+            itemType={itemType}
           />
         </SelectionSectionWrapper>
         {currentPageItems.length > 0 ? (
           <ProductSectionWrapper>
             <MainTitle />
-            <ItemTypes onClick={chooseItemType} selected={props.selectedType} />
+            <ItemTypes onClick={chooseItemType} selected={props.itemType} />
             <List items={currentPageItems} addBasket={addBasket} />
             <ListPagination
               pageCount={pageCount}
@@ -213,7 +201,7 @@ const mapDispatchToProps = {
 const mapStateToProps = ({ searchResponse, itemsResponse, basketResponse }) => {
   const { companies, tags } = searchResponse;
   const {
-    selectedType,
+    itemType,
     sortType,
     sortOrder,
     pageCount,
@@ -227,7 +215,7 @@ const mapStateToProps = ({ searchResponse, itemsResponse, basketResponse }) => {
     companies,
     tags,
     loading,
-    selectedType,
+    itemType,
     sortType,
     sortOrder,
     brand,

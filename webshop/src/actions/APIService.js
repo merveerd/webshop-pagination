@@ -20,7 +20,7 @@ export const requestAllItems = async () => {
 };
 
 export const requestSelectedItems = async ({
-  selectedType,
+  itemType,
   sortType, //price or added
   sortOrder,
   tag,
@@ -30,37 +30,37 @@ export const requestSelectedItems = async ({
   const isBrandChosen = Object.keys(brand).length !== 0;
   const isTagChosen = Object.keys(tag).length !== 0;
 
-  if (selectedType && sortType && isTagChosen && isBrandChosen) {
+  if (itemType && sortType && isTagChosen && isBrandChosen) {
     return await axiosInstance.get(
-      `/items?tags_like=${tag}&itemType=${selectedType}&manufacturer=${brand}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
+      `/items?tags_like=${tag}&itemType=${itemType}&manufacturer=${brand}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
     );
-  } else if (selectedType && sortType && isTagChosen) {
+  } else if (itemType && sortType && isTagChosen) {
     return await axiosInstance.get(
-      `/items?tags_like=${tag}&itemType=${selectedType}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
+      `/items?tags_like=${tag}&itemType=${itemType}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
     );
-  } else if (selectedType && sortType && isBrandChosen) {
+  } else if (itemType && sortType && isBrandChosen) {
     return await axiosInstance.get(
-      `/items?itemType=${selectedType}&manufacturer=${brand}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
+      `/items?itemType=${itemType}&manufacturer=${brand}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
     );
   } else if (sortType && isTagChosen && isBrandChosen) {
     return await axiosInstance.get(
       `/items?tags_like=${tag}&manufacturer=${brand}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
     );
-  } else if (selectedType && isTagChosen && isBrandChosen) {
+  } else if (itemType && isTagChosen && isBrandChosen) {
     return await axiosInstance.get(
-      `/items?tags_like=${tag}&itemType=${selectedType}&manufacturer=${brand}&_page=${currentPage}&_limit=${pageItemCount}`
+      `/items?tags_like=${tag}&itemType=${itemType}&manufacturer=${brand}&_page=${currentPage}&_limit=${pageItemCount}`
     );
-  } else if (selectedType && sortType) {
+  } else if (itemType && sortType) {
     return await axiosInstance.get(
-      `/items?itemType=${selectedType}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
+      `/items?itemType=${itemType}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
     );
-  } else if (selectedType && isTagChosen) {
+  } else if (itemType && isTagChosen) {
     return await axiosInstance.get(
-      `/items?tags_like=${tag}&itemType=${selectedType}&_page=${currentPage}&_limit=${pageItemCount}`
+      `/items?tags_like=${tag}&itemType=${itemType}&_page=${currentPage}&_limit=${pageItemCount}`
     );
-  } else if (selectedType && isBrandChosen) {
+  } else if (itemType && isBrandChosen) {
     return await axiosInstance.get(
-      `/items?itemType=${selectedType}&manufacturer=${brand}_page=${currentPage}&_limit=${pageItemCount}`
+      `/items?itemType=${itemType}&manufacturer=${brand}&_page=${currentPage}&_limit=${pageItemCount}`
     );
   } else if (sortType && isTagChosen) {
     return await axiosInstance.get(
@@ -78,9 +78,9 @@ export const requestSelectedItems = async ({
     return await axiosInstance.get(
       `/items?_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=${pageItemCount}`
     );
-  } else if (selectedType) {
+  } else if (itemType) {
     return await axiosInstance.get(
-      `/items?itemType=${selectedType}&_page=${currentPage}&_limit=${pageItemCount}`
+      `/items?itemType=${itemType}&_page=${currentPage}&_limit=${pageItemCount}`
     );
   } else if (isTagChosen) {
     return await axiosInstance.get(

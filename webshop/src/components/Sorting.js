@@ -74,7 +74,7 @@ const sortingData = [
 
 const Sorting = (props) => {
   const [clicked, setClicked] = useState("");
-  const { selectedType, brand, tag } = props;
+  const { itemType, brand, tag } = props;
 
   const handleSelection = (e, index) => {
     let sortType;
@@ -92,7 +92,7 @@ const Sorting = (props) => {
         sortType,
         sortOrder,
         currentPage: 1,
-        selectedType,
+        itemType,
         brand,
         tag,
       });

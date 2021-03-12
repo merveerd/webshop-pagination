@@ -16,7 +16,7 @@ import {
 
 const INITIAL_STATE = {
   loading: true,
-  selectedType: "",
+  itemType: "",
   sortType: "",
   sortOrder: "",
   brand: "",
@@ -36,7 +36,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         pageItems: action.payload.data,
         pageCount: Math.ceil(Number(action.payload.dataCount) / pageItemCount),
-        selectedType: "",
+        itemType: "",
         loading: false,
       };
     case ITEMS_FAILED:
@@ -55,7 +55,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return { ...state, loading: false };
 
     case SELECTED_TYPE_CHANGE:
-      return { ...state, selectedType: action.payload };
+      return { ...state, itemType: action.payload };
 
     case SORT_RULE_CHANGE:
       return {
@@ -84,6 +84,6 @@ export const currentPageItems = (state) => {
   return state.pageItems;
 };
 
-export const selectedType = (state) => state.selectedType;
+export const itemType = (state) => state.itemType;
 
 export default reducer;
