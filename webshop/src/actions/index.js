@@ -1,16 +1,18 @@
 import {
-  COMPANIES_START,
   PAGE_CHANGE,
   SELECTED_TYPE_CHANGE,
   SORT_RULE_CHANGE,
+  BRAND_CHANGE,
+  TAG_CHANGE,
+  SEARCH_PARAMETERS_START,
   ITEMS_START,
   SELECTED_ITEMS_START,
   BASKET_ADD,
   BASKET_REDUCE,
 } from "./types";
 
-export const getCompanies = () => ({
-  type: COMPANIES_START,
+export const getCompaniesandTags = () => ({
+  type: SEARCH_PARAMETERS_START,
 });
 
 export const getPageDefaultItems = (currentPage) => {
@@ -45,6 +47,19 @@ export const setSortRule = (sortRule) => {
   return {
     type: SORT_RULE_CHANGE,
     payload: sortRule,
+  };
+};
+
+export const setBrand = (brand) => {
+  return {
+    type: BRAND_CHANGE,
+    payload: brand,
+  };
+};
+export const setTag = (tag) => {
+  return {
+    type: TAG_CHANGE,
+    payload: tag,
   };
 };
 

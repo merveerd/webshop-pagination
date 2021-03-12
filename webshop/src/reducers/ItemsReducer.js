@@ -1,5 +1,5 @@
 import { createSelector } from "reselect";
-
+import { pageItemCount } from "../constants";
 import {
   ITEMS_START,
   ITEMS_RECEIVED,
@@ -10,7 +10,8 @@ import {
   SELECTED_TYPE_CHANGE,
   SORT_RULE_CHANGE,
   PAGE_CHANGE,
-  PAGE_CHANGE_FAILED,
+  TAG_CHANGE,
+  BRAND_CHANGE,
 } from "../actions/types";
 
 const INITIAL_STATE = {
@@ -18,6 +19,8 @@ const INITIAL_STATE = {
   selectedType: "",
   sortType: "",
   sortOrder: "",
+  brand: "",
+  tag: "",
   selectedItems: [],
   pageItems: [],
   page: 1,
@@ -32,7 +35,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         pageItems: action.payload.data,
-        pageCount: Math.ceil(Number(action.payload.dataCount) / 16),
+        pageCount: Math.ceil(Number(action.payload.dataCount) / pageItemCount),
         selectedType: "",
         loading: false,
       };
@@ -44,7 +47,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         pageItems: action.payload.data,
-        pageCount: Math.ceil(Number(action.payload.dataCount) / 16),
+        pageCount: Math.ceil(Number(action.payload.dataCount) / pageItemCount),
         loading: false,
       };
 
@@ -61,11 +64,13 @@ const reducer = (state = INITIAL_STATE, action) => {
         sortOrder: action.payload.sortOrder,
       };
 
+    case BRAND_CHANGE:
+      return { ...state, brand: action.payload };
+    case TAG_CHANGE:
+      return { ...state, tag: action.payload };
+
     case PAGE_CHANGE:
       return { ...state, page: action.payload };
-
-    case PAGE_CHANGE_FAILED:
-      return { ...state };
 
     default:
       return state;

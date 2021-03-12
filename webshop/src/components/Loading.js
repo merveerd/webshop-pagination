@@ -1,11 +1,16 @@
 import React from "react";
-import img from "../assets/loading_spinner.gif";
+import styled from "styled-components";
+
+const LoadingContainer = styled.div`
+  width: 47%;
+  text-align: center;
+`;
+
 let Loading = (props) => {
-  return props.loading ? (
-    <div style={{ textAlign: "center" }}>
-      <img src={img} alt="loading" />
-      <h1>LOADING</h1>
-    </div>
-  ) : null;
+  return (
+    <LoadingContainer>
+      <h3>No data found</h3>
+    </LoadingContainer>
+  );
 };
 export { Loading };

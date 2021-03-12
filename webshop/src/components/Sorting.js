@@ -6,8 +6,9 @@ import checkCircleOutlined from "@iconify-icons/ant-design/check-circle-outlined
 const SortWrapper = styled.div`
   display: flex;
   position: relative;
-  width: 20%;
+  width: 100%;
   height: 12.2rem;
+  margin-bottom: 1.5rem;
 `;
 
 const SortArea = styled.div`
@@ -17,7 +18,7 @@ const SortArea = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  height: 85%;
+  height: 86%;
   bottom: 0;
   box-sizing: border-box;
   border-radius: 0.15rem;
@@ -41,7 +42,7 @@ const OptionWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   margin: 0.3rem;
-  margin-left: 1.3rem;
+  margin-left: 8%;
 `;
 
 const OptionName = styled.p`
@@ -73,7 +74,7 @@ const sortingData = [
 
 const Sorting = (props) => {
   const [clicked, setClicked] = useState("");
-  const { selectedType } = props;
+  const { selectedType, brand, tag } = props;
 
   const handleSelection = (e, index) => {
     let sortType;
@@ -82,18 +83,21 @@ const Sorting = (props) => {
       setClicked("");
       sortType = "";
       sortOrder = "";
+      props.getPageDefaultItems(1);
     } else {
       setClicked(index);
       sortType = sortingData[index].type;
       sortOrder = sortingData[index].order;
+      props.getSelectedItems({
+        sortType,
+        sortOrder,
+        currentPage: 1,
+        selectedType,
+        brand,
+        tag,
+      });
     }
 
-    props.getSelectedItems({
-      sortType,
-      sortOrder,
-      currentPage: 1,
-      selectedType,
-    });
     props.setSortRule({ sortType, sortOrder });
     props.setPage({ selected: 0 }); //simulate react-paginate component event. Needs to be after setSortRule considering useEffect on currentPage
   };

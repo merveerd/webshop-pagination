@@ -1,39 +1,50 @@
 import { call, put, takeLatest, all, spawn } from "redux-saga/effects";
 
 import {
-  COMPANIES_START,
-  COMPANIES_RECEIVED,
-  COMPANIES_FAILED,
   ITEMS_START,
   ITEMS_RECEIVED,
   ITEMS_FAILED,
   SELECTED_ITEMS_START,
   SELECTED_ITEMS_RECEIVED,
   SELECTED_ITEMS_FAILED,
-  SORTED_ITEMS_START,
-  SORTED_ITEMS_RECEIVED,
-  SORTED_ITEMS_FAILED,
+  SEARCH_PARAMETERS_START,
+  SEARCH_PARAMETERS_RECEIVED,
+  SEARCH_PARAMETERS_FAILED,
 } from "../actions/types";
 
 import {
-  requestCompanies,
   requestDefaultItems,
   requestSelectedItems,
-  requestSortedItems,
+  requestAllItems,
 } from "../actions/APIService";
 
-function* fetchCompanies() {
+function* fetchAllItems(data) {
   try {
-    const companies = yield call(requestCompanies);
+    const response = yield call(requestAllItems, data.payload);
 
-    yield put({ type: COMPANIES_RECEIVED, payload: companies });
+    let tags = {},
+      companies = {};
+
+    response.data.forEach((item) => {
+      item.tags.forEach((tag) => {
+        tags[tag] = tags[tag] + 1 || 1;
+      });
+    });
+    response.data.forEach((item) => {
+      companies[item.manufacturer] = companies[item.manufacturer] + 1 || 1;
+    });
+
+    yield put({
+      type: SEARCH_PARAMETERS_RECEIVED,
+      payload: { tags, companies },
+    });
   } catch (err) {
     console.log("err", err);
-    yield put({ type: COMPANIES_FAILED });
+    yield put({ type: SEARCH_PARAMETERS_FAILED });
   }
 }
 
-function* fetchPageItems(data) {
+function* fetchDefaultItems(data) {
   try {
     const response = yield call(requestDefaultItems, data.payload);
 
@@ -66,9 +77,9 @@ function* fetchSelectedItems(data) {
   }
 }
 function* actionWatcher() {
-  yield takeLatest(COMPANIES_START, fetchCompanies);
-  yield takeLatest(ITEMS_START, fetchPageItems);
+  yield takeLatest(ITEMS_START, fetchDefaultItems);
   yield takeLatest(SELECTED_ITEMS_START, fetchSelectedItems);
+  yield takeLatest(SEARCH_PARAMETERS_START, fetchAllItems);
 }
 export default function* rootSaga() {
   yield all([actionWatcher()]);
