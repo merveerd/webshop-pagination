@@ -7,15 +7,19 @@ import {
   SELECTED_ITEMS_START,
   SELECTED_ITEMS_RECEIVED,
   SELECTED_ITEMS_FAILED,
+  SELECTED_TYPE_CHANGE,
+  SORT_RULE_CHANGE,
   PAGE_CHANGE,
   PAGE_CHANGE_FAILED,
 } from "../actions/types";
 
 const INITIAL_STATE = {
   loading: true,
-  defaultItems: [], //only the current page items
   selectedType: "",
-  selectedItems: [], //mugs or shirts. whole bunch of data since I wasn't able to paginate at the same time on JSON Server
+  sortType: "",
+  sortOrder: "",
+  selectedItems: [],
+  pageItems: [],
   page: 1,
   pageCount: 1,
 };
@@ -27,7 +31,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     case ITEMS_RECEIVED:
       return {
         ...state,
-        defaultItems: action.payload.data,
+        pageItems: action.payload.data,
         pageCount: Math.ceil(Number(action.payload.dataCount) / 16),
         selectedType: "",
         loading: false,
@@ -39,14 +43,24 @@ const reducer = (state = INITIAL_STATE, action) => {
     case SELECTED_ITEMS_RECEIVED:
       return {
         ...state,
-        selectedItems: action.payload.data,
+        pageItems: action.payload.data,
         pageCount: Math.ceil(Number(action.payload.dataCount) / 16),
-        selectedType: action.payload.data[0].itemType,
         loading: false,
       };
 
     case SELECTED_ITEMS_FAILED:
       return { ...state, loading: false };
+
+    case SELECTED_TYPE_CHANGE:
+      return { ...state, selectedType: action.payload };
+
+    case SORT_RULE_CHANGE:
+      return {
+        ...state,
+        sortType: action.payload.sortType,
+        sortOrder: action.payload.sortOrder,
+      };
+
     case PAGE_CHANGE:
       return { ...state, page: action.payload };
 
@@ -61,20 +75,10 @@ export const currentPage = (state) => {
   return state.page;
 };
 
+export const currentPageItems = (state) => {
+  return state.pageItems;
+};
+
 export const selectedType = (state) => state.selectedType;
 
-export const selectedItems = (state) => state.selectedItems;
-
-export const defaultItems = (state) => state.defaultItems;
-
-export const currentPageItems = createSelector(
-  [selectedType, selectedItems, defaultItems, currentPage],
-  (selectedType, selectedItems, defaultItems, page) => {
-    if (!selectedType) {
-      return defaultItems;
-    } else if (selectedItems) {
-      return selectedItems.slice((page - 1) * 16, page * 16);
-    }
-  }
-);
 export default reducer;

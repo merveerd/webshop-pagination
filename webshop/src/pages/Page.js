@@ -5,6 +5,7 @@ import {
   getCompanies,
   getPageDefaultItems,
   getSelectedItems,
+  setSortRule,
   setPage,
   setItemType,
   addBasket,
@@ -17,6 +18,7 @@ import {
   ItemTypes,
   Basket,
   MainTitle,
+  Sorting,
 } from "../components";
 import { totalPrice } from "../reducers/BasketReducer";
 import { currentPage, currentPageItems } from "../reducers/ItemsReducer";
@@ -25,7 +27,7 @@ const MainContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: row;
-  margin-top: 3vw;
+  margin-top: 2.5vw;
 `;
 
 const ProductSectionWrapper = styled.div`
@@ -41,7 +43,8 @@ const Page = (props) => {
     currentPage,
     currentPageItems,
     selectedType,
-    defaultItems,
+    sortType,
+    sortOrder,
     basket,
     totalPrice,
     addBasket,
@@ -54,7 +57,14 @@ const Page = (props) => {
   }, []);
 
   useEffect(() => {
-    !selectedType && props.getPageDefaultItems(currentPage);
+    selectedType || sortType
+      ? props.getSelectedItems({
+          selectedType,
+          sortType,
+          sortOrder,
+          currentPage,
+        })
+      : props.getPageDefaultItems(currentPage);
   }, [currentPage]);
 
   const chooseItemType = useCallback((e) => {
@@ -64,20 +74,29 @@ const Page = (props) => {
       props.setItemType("");
       props.getPageDefaultItems(1);
     } else {
+      props.setItemType(currentSelectedType);
+
       props.getSelectedItems({
         selectedType: currentSelectedType,
+        sortType,
+        sortOrder,
         currentPage: 1,
       });
     }
-    props.setPage({ selected: 0 }); //simulate react-paginate component event
+    props.setPage({ selected: 0 }); //simulate react-paginate component event. Needs to be after setItemType considering useEffect on currentPage
   });
 
   return (
     <>
       <Header totalPrice={totalPrice.toFixed(2)} />
-      {defaultItems.length > 0 && (
+      {currentPageItems.length > 0 && (
         <MainContainer>
-          <Basket />
+          <Sorting
+            getSelectedItems={props.getSelectedItems}
+            setSortRule={props.setSortRule}
+            setPage={props.setPage}
+            selectedType={selectedType}
+          />
           <ProductSectionWrapper>
             <MainTitle />
             <ItemTypes onClick={chooseItemType} selected={props.selectedType} />
@@ -106,6 +125,7 @@ const mapDispatchToProps = {
   setItemType,
   getPageDefaultItems,
   getSelectedItems,
+  setSortRule,
   addBasket,
   reduceBasket,
 };
@@ -116,14 +136,21 @@ const mapStateToProps = ({
   basketResponse,
 }) => {
   const { companies } = companiesResponse;
-  const { defaultItems, selectedType, pageCount, loading } = itemsResponse;
+  const {
+    selectedType,
+    sortType,
+    sortOrder,
+    pageCount,
+    loading,
+  } = itemsResponse;
   const { basket } = basketResponse;
 
   return {
     companies,
-    defaultItems,
     loading,
     selectedType,
+    sortType,
+    sortOrder,
     pageCount,
     currentPage: currentPage(itemsResponse),
     currentPageItems: currentPageItems(itemsResponse),

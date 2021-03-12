@@ -10,12 +10,16 @@ import {
   SELECTED_ITEMS_START,
   SELECTED_ITEMS_RECEIVED,
   SELECTED_ITEMS_FAILED,
+  SORTED_ITEMS_START,
+  SORTED_ITEMS_RECEIVED,
+  SORTED_ITEMS_FAILED,
 } from "../actions/types";
 
 import {
   requestCompanies,
   requestDefaultItems,
   requestSelectedItems,
+  requestSortedItems,
 } from "../actions/APIService";
 
 function* fetchCompanies() {
@@ -49,12 +53,11 @@ function* fetchPageItems(data) {
 function* fetchSelectedItems(data) {
   try {
     const response = yield call(requestSelectedItems, data.payload);
-
     yield put({
       type: SELECTED_ITEMS_RECEIVED,
       payload: {
         data: response.data,
-        dataCount: response.data.length,
+        dataCount: response.headers["x-total-count"],
       },
     });
   } catch (err) {
@@ -62,7 +65,6 @@ function* fetchSelectedItems(data) {
     yield put({ type: SELECTED_ITEMS_FAILED });
   }
 }
-
 function* actionWatcher() {
   yield takeLatest(COMPANIES_START, fetchCompanies);
   yield takeLatest(ITEMS_START, fetchPageItems);

@@ -1,9 +1,10 @@
 import {
   COMPANIES_START,
   PAGE_CHANGE,
+  SELECTED_TYPE_CHANGE,
+  SORT_RULE_CHANGE,
   ITEMS_START,
   SELECTED_ITEMS_START,
-  SELECTED_TYPE_CHANGE,
   BASKET_ADD,
   BASKET_REDUCE,
 } from "./types";
@@ -37,6 +38,13 @@ export const setItemType = (selectedType) => {
   return {
     type: SELECTED_TYPE_CHANGE,
     payload: selectedType,
+  };
+};
+
+export const setSortRule = (sortRule) => {
+  return {
+    type: SORT_RULE_CHANGE,
+    payload: sortRule,
   };
 };
 

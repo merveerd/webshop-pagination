@@ -12,7 +12,23 @@ export const requestDefaultItems = async (currentPage) => {
   return await axiosInstance.get(`/items?_page=${currentPage}&_limit=16`);
 };
 
-export const requestSelectedItems = async ({ selectedType, currentPage }) => {
-  //wasn't able to make with pagination
-  return await axiosInstance.get(`/items?itemType=${selectedType}`);
+export const requestSelectedItems = async ({
+  selectedType,
+  sortType, //price or added
+  sortOrder,
+  currentPage,
+}) => {
+  if (selectedType && sortType) {
+    return await axiosInstance.get(
+      `/items?itemType=${selectedType}&_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=16`
+    );
+  } else if (sortType) {
+    return await axiosInstance.get(
+      `/items?_sort=${sortType}&_order=${sortOrder}&_page=${currentPage}&_limit=16`
+    );
+  } else if (selectedType) {
+    return await axiosInstance.get(
+      `/items?itemType=${selectedType}&_page=${currentPage}&_limit=16`
+    );
+  }
 };

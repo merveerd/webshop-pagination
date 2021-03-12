@@ -7,10 +7,11 @@ const BasketContainer = styled.div`
   display: flex;
   position: relative;
   flex-direction: column;
-  width: 18%;
+  width: 20%;
   height: 17rem;
   border: 0.45rem solid #1ea4ce;
   border-radius: 0.2rem;
+  box-sizing: border-box;
 `;
 
 const BasketProductContainer = styled.div`

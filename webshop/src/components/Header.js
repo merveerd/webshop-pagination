@@ -24,7 +24,7 @@ const BasketPointer = styled.div`
   background-color: #1b83a7;
   width: 10%;
   height: auto;
-  margin-left: 28%;
+  margin-left: 29%;
   align-items: center;
   justify-content: center;
   font-family: Open Sans;

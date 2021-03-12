@@ -7,7 +7,7 @@ const ProductWrapper = styled.div`
   width: 85%;
   align-items: center;
   border-bottom: 0.1rem solid #e5e5e5;
-  padding: 0.9rem;
+  padding: 0.8rem;
 `;
 
 const ProductNameWrapper = styled.div`

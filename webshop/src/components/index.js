@@ -5,3 +5,4 @@ export * from "./Header";
 export * from "./ItemTypes";
 export * from "./Basket";
 export * from "./MainTitle";
+export * from "./Sorting";
