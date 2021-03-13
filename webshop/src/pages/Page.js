@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { device } from "../constants";
 import { Wrapper } from "../components/SharedStyledComponents";
@@ -230,5 +231,31 @@ const mapStateToProps = ({ searchResponse, itemsResponse, basketResponse }) => {
     basket,
     totalPrice: totalPrice(basketResponse),
   };
+};
+
+Page.propTypes = {
+  companies: PropTypes.object,
+  tags: PropTypes.object,
+  loading: PropTypes.bool,
+  itemType: PropTypes.string,
+  sortType: PropTypes.string,
+  sortOrder: PropTypes.string,
+  brand: PropTypes.string,
+  tag: PropTypes.string,
+  pageCount: PropTypes.number,
+  currentPage: PropTypes.number,
+  currentPageItems: PropTypes.array,
+  basket: PropTypes.array,
+  totalPrice: PropTypes.number,
+  getCompaniesandTags: PropTypes.func,
+  getPageDefaultItems: PropTypes.func,
+  getSelectedItems: PropTypes.func,
+  setPage: PropTypes.func,
+  setItemType: PropTypes.func,
+  setSortRule: PropTypes.func,
+  setBrand: PropTypes.func,
+  setTag: PropTypes.func,
+  addBasket: PropTypes.func,
+  reduceBasket: PropTypes.func,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Page);

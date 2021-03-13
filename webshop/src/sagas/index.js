@@ -44,7 +44,7 @@ function* fetchAllItems(data) {
   }
 }
 
-function* fetchDefaultItems(data) {
+export function* fetchDefaultItems(data) {
   try {
     const response = yield call(requestDefaultItems, data.payload);
 

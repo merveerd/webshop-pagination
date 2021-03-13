@@ -1,6 +1,6 @@
 export const PAGE_CHANGE = "page_change";
 export const SELECTED_TYPE_CHANGE = "selected_type_change";
-export const SORT_RULE_CHANGE = "SORT_RULE_CHANGE";
+export const SORT_RULE_CHANGE = "sort_rule_change";
 export const TAG_CHANGE = "tag_change";
 export const BRAND_CHANGE = "brand_change";
 
