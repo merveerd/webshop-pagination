@@ -1,4 +1,3 @@
-import { createSelector } from "reselect";
 import { pageItemCount } from "../constants";
 import {
   ITEMS_START,

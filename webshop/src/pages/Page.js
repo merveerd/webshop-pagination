@@ -26,7 +26,7 @@ import {
 } from "../components";
 import { totalPrice } from "../reducers/BasketReducer";
 import { currentPage, currentPageItems } from "../reducers/ItemsReducer";
-
+import { ITEM_TYPE, BRAND, TAG } from "../constants";
 const MainContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -95,19 +95,19 @@ const Page = (props) => {
       currentPage: 1,
     };
     switch (parameterName) {
-      case "itemType":
+      case ITEM_TYPE:
         selected === parameter
           ? (newParams.itemType = "")
           : (newParams.itemType = selected);
         props.setItemType(newParams.itemType);
         break;
-      case "brand":
+      case BRAND:
         selected === parameter
           ? (newParams.brand = "")
           : (newParams.brand = selected);
         props.setBrand(newParams.brand);
         break;
-      case "tag":
+      case TAG:
         selected === parameter
           ? (newParams.tag = "")
           : (newParams.tag = selected);
@@ -126,14 +126,14 @@ const Page = (props) => {
       props.getSelectedItems(newParams);
     }
 
-    props.setPage({ selected: 0 }); //simulate react-paginate component event. Needs to be after setItemType considering useEffect on currentPage
+    props.setPage({ selected: 0 }); //simulate react-paginate component event. Needs to be after other set functions considering useEffect on currentPage
   };
 
-  const chooseItemType = (e) => handleSelection(e, itemType, "itemType");
+  const chooseItemType = (e) => handleSelection(e, itemType, ITEM_TYPE);
 
-  const handleBrandSearch = (e) => handleSelection(e, brand, "brand");
+  const handleBrandSearch = (e) => handleSelection(e, brand, BRAND);
 
-  const handleTagSearch = (e) => handleSelection(e, tag);
+  const handleTagSearch = (e) => handleSelection(e, tag, TAG);
 
   return (
     <>

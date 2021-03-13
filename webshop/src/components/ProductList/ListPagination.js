@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/Pagination.css";
+import "../../style/Pagination.css";
 import ReactPaginate from "react-paginate";
 
 const ListPagination = (props) => {
