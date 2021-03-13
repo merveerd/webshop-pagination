@@ -1,9 +1,9 @@
 import { call, put, takeLatest, all, spawn } from "redux-saga/effects";
 
 import {
-  ITEMS_START,
-  ITEMS_RECEIVED,
-  ITEMS_FAILED,
+  DEFAULT_ITEMS_START,
+  DEFAULT_ITEMS_RECEIVED,
+  DEFAULT_ITEMS_FAILED,
   SELECTED_ITEMS_START,
   SELECTED_ITEMS_RECEIVED,
   SELECTED_ITEMS_FAILED,
@@ -49,7 +49,7 @@ export function* fetchDefaultItems(data) {
     const response = yield call(requestDefaultItems, data.payload);
 
     yield put({
-      type: ITEMS_RECEIVED,
+      type: DEFAULT_ITEMS_RECEIVED,
       payload: {
         data: response.data,
         dataCount: response.headers["x-total-count"],
@@ -57,7 +57,7 @@ export function* fetchDefaultItems(data) {
     });
   } catch (err) {
     console.log("err", err);
-    yield put({ type: ITEMS_FAILED });
+    yield put({ type: DEFAULT_ITEMS_FAILED });
   }
 }
 
@@ -77,7 +77,7 @@ function* fetchSelectedItems(data) {
   }
 }
 function* actionWatcher() {
-  yield takeLatest(ITEMS_START, fetchDefaultItems);
+  yield takeLatest(DEFAULT_ITEMS_START, fetchDefaultItems);
   yield takeLatest(SELECTED_ITEMS_START, fetchSelectedItems);
   yield takeLatest(SEARCH_PARAMETERS_START, fetchAllItems);
 }

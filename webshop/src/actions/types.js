@@ -9,9 +9,9 @@ export const SEARCH_PARAMETERS_START = "search_parameters_start";
 export const SEARCH_PARAMETERS_RECEIVED = "search_parameters_eceived";
 export const SEARCH_PARAMETERS_FAILED = "search_parameters_failed";
 
-export const ITEMS_START = "items_start";
-export const ITEMS_RECEIVED = "items_received";
-export const ITEMS_FAILED = "items_failed";
+export const DEFAULT_ITEMS_START = "default_items_start";
+export const DEFAULT_ITEMS_RECEIVED = "default_items_received";
+export const DEFAULT_ITEMS_FAILED = "default__items_failed";
 
 export const SELECTED_ITEMS_START = "selected_items_start";
 export const SELECTED_ITEMS_RECEIVED = "selected_items_received";

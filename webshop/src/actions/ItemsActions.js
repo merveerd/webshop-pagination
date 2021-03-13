@@ -4,12 +4,12 @@ import {
   SORT_RULE_CHANGE,
   BRAND_CHANGE,
   TAG_CHANGE,
-  ITEMS_START,
+  DEFAULT_ITEMS_START,
   SELECTED_ITEMS_START,
 } from "./types";
 
 export const getPageDefaultItems = (currentPage) => ({
-  type: ITEMS_START,
+  type: DEFAULT_ITEMS_START,
   payload: currentPage,
 });
 

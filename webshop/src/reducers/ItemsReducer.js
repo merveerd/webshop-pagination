@@ -1,8 +1,8 @@
 import { pageItemCount } from "../constants";
 import {
-  ITEMS_START,
-  ITEMS_RECEIVED,
-  ITEMS_FAILED,
+  DEFAULT_ITEMS_START,
+  DEFAULT_ITEMS_RECEIVED,
+  DEFAULT_ITEMS_FAILED,
   SELECTED_ITEMS_START,
   SELECTED_ITEMS_RECEIVED,
   SELECTED_ITEMS_FAILED,
@@ -28,9 +28,9 @@ const INITIAL_STATE = {
 
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case ITEMS_START:
+    case DEFAULT_ITEMS_START:
       return { ...state, loading: true };
-    case ITEMS_RECEIVED:
+    case DEFAULT_ITEMS_RECEIVED:
       return {
         ...state,
         pageItems: action.payload.data,
@@ -38,7 +38,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         itemType: "",
         loading: false,
       };
-    case ITEMS_FAILED:
+    case DEFAULT_ITEMS_FAILED:
       return { ...state, loading: false };
     case SELECTED_ITEMS_START:
       return { ...state, loading: true };
