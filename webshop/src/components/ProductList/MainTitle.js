@@ -6,7 +6,7 @@ const Title = styled.h4`
   margin: 0;
   font-family: Open Sans;
   font-weight: normal;
-  font-size: 20px;
+  font-size: 1.2rem;
   letter-spacing: 0.25px;
 `;
 

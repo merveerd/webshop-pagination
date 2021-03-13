@@ -1,35 +1,35 @@
 import React, { memo } from "react";
 import styled from "styled-components";
-
+import { device } from "../constants";
 const HeaderWrapper = styled.div`
-  display: flex;
-  position: relative;
-  background-color: #1ea4ce;
-  border: none;
-  color: #ffffff;
   width: 100%;
-  height: 5.2vw;
+  height: 10vh;
+  display: flex;
+  background-color: #1ea4ce;
+  color: #ffffff;
 `;
 
 const Title = styled.p`
-  display: flex;
-  align-self: center;
   width: 10%;
   margin-left: 45%;
+  display: flex;
+  align-self: center;
   font-size: 2rem;
 `;
 
 const BasketPointer = styled.div`
-  display: flex;
-  background-color: #1b83a7;
   width: 10%;
-  height: auto;
   margin-left: 29%;
+  background-color: #1b83a7;
+  display: flex;
   align-items: center;
   justify-content: center;
   font-family: Open Sans;
-  font-style: normal;
   font-weight: 600;
+  @media only screen and ${device.xs} {
+    width: 20%;
+    margin-left: 25%;
+  }
 `;
 const Header = memo((props) => {
   return (

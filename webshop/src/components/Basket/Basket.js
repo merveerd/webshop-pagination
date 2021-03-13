@@ -1,41 +1,44 @@
 import React from "react";
 import styled from "styled-components";
-
+import { device } from "../../constants";
 import { BasketProduct } from "./BasketProduct";
 const BasketContainer = styled.div`
-  background-color: #ffffff;
-  display: flex;
   position: relative;
-  flex-direction: column;
   width: 20%;
   height: 17rem;
   border: 0.45rem solid #1ea4ce;
   border-radius: 0.2rem;
   box-sizing: border-box;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  @media only screen and ${device.xs} {
+    display: none;
+  }
 `;
 
 const BasketProductContainer = styled.div`
-  overflow-y: scroll;
+  position: relative;
+  height: 13rem;
   background-color: #ffffff;
   display: flex;
-  height: 13rem;
-  position: relative;
   flex-direction: column;
+  overflow-y: scroll;
 `;
 
 const TotalPrice = styled.div`
-  background-color: #ffffff;
-  display: flex;
   position: absolute;
-  right: 5%;
-  top: 80%;
-  flex-direction: column;
-  justify-content: center;
   width: 36%;
   height: 15%;
   border: 0.15rem solid #1ea4ce;
-  color: #1ea4ce;
   border-radius: 0.1rem;
+  right: 5%;
+  top: 80%;
+  background-color: #ffffff;
+  color: #1ea4ce;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 `;
 

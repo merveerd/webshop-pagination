@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { device } from "../constants";
 import {
   getCompaniesandTags,
   getPageDefaultItems,
@@ -40,12 +41,17 @@ const ProductSectionWrapper = styled.div`
   flex-direction: column;
   margin-left: 1.5%;
   margin-right: 1.5%;
+  @media only screen and ${device.xs} {
+    width: 70%;
+  }
 `;
 
 const SelectionSectionWrapper = styled.div`
   width: 20%;
   display: flex;
   flex-direction: column;
+  @media only screen and ${device.xs} {
+  }
 `;
 
 const Page = (props) => {

@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 
 const ProductWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
   width: 85%;
-  align-items: center;
   border-bottom: 0.1rem solid #e5e5e5;
   padding: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const ProductNameWrapper = styled.div`
@@ -16,6 +16,7 @@ const ProductNameWrapper = styled.div`
   flex-direction: column;
 `;
 const ProductName = styled.p`
+  width: 6rem;
   color: #191919;
   font-size: 0.9rem;
 `;
@@ -23,35 +24,36 @@ const ProductName = styled.p`
 const ProductPrice = styled.p`
   display: flex;
   color: #1ea4ce;
-  line-height: 18px;
+  line-height: 1.1rem;
   letter-spacing: 0.16px;
   font-family: Open Sans;
-  font-size: 14px;
+  font-size: 0.9rem;
 `;
 
 const QuantityWrapper = styled.div`
+  width: 5rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  width: 35%;
 `;
 
 const ProductQuantity = styled.p`
-  display: flex;
-  justify-content: center;
+  width: 50%;
+  padding: 0.2rem;
+  margin: 0.4rem;
   color: #ffffff;
   background-color: #1ea4ce;
+  display: flex;
+  justify-content: center;
   line-height: 20px;
   letter-spacing: 0.16px;
   font-family: Open Sans;
   font-size: 1rem;
-  padding: 0.2rem;
-  width: 50%;
-  margin: 0.4rem;
 `;
 
 const QuantityEditButton = styled.div`
+  width: 2rem;
   display: flex;
   justify-content: center;
   color: #1ea4ce;

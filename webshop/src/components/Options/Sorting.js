@@ -2,66 +2,52 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import checkCircleOutlined from "@iconify-icons/ant-design/check-circle-outlined";
-
+import { device } from "../../constants";
+import { SelectionTitle } from "./SelectionTitle";
+import { OptionName } from "./OptionName";
 const SortWrapper = styled.div`
-  display: flex;
   position: relative;
   width: 100%;
   height: 12.2rem;
   margin-bottom: 1.5rem;
+  display: flex;
 `;
 
 const SortArea = styled.div`
-  background-color: #ffffff;
-  display: flex;
   position: absolute;
-  flex-direction: column;
-  justify-content: center;
   width: 100%;
   height: 86%;
   bottom: 0;
   box-sizing: border-box;
   border-radius: 0.15rem;
   box-shadow: 0px 6px 24px rgba(93, 62, 188, 0.04);
-`;
-const Title = styled.p`
-  position: absolute;
-  height: 1.1rem;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 0.9rem;
-  line-height: 1.1rem;
+  background-color: #ffffff;
   display: flex;
-  align-items: center;
-  color: #697488;
+  flex-direction: column;
+  justify-content: center;
+
+  @media only screen and ${device.xs} {
+    display: ${(p) => (p.isOpen ? "flex" : "none")};
+    width: 18rem;
+  }
 `;
 
 const OptionWrapper = styled.div`
+  margin: 0.3rem;
+  margin-left: 8%;
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0.3rem;
-  margin-left: 8%;
-`;
-
-const OptionName = styled.p`
-  font-family: Open Sans;
-  display: flex;
-  align-items: center;
-  color: #525252;
-  margin-left: 1rem;
-  font-size: 0.95rem;
 `;
 
 const CheckBox = styled.button`
-  background: #ffffff;
+  height: 1.3rem;
+  width: 1.3rem;
   border: 0.13rem solid #dfdee2;
   box-sizing: border-box;
   border-radius: 50%;
   cursor: pointer;
-  height: 1.3rem;
-  width: 1.3rem;
+  background: #ffffff;
   outline: none;
 `;
 
@@ -75,7 +61,7 @@ const sortingData = [
 const Sorting = (props) => {
   const [clicked, setClicked] = useState("");
   const { itemType, brand, tag } = props;
-
+  const [isOpen, setisOpen] = useState(""); //for mobile
   const handleSelection = (e, index) => {
     let sortType;
     let sortOrder;
@@ -104,9 +90,9 @@ const Sorting = (props) => {
 
   return (
     <SortWrapper>
-      <Title> Sorting</Title>
+      <SelectionTitle onClick={() => setisOpen(!isOpen)} areaTitle="Sorting" />
 
-      <SortArea>
+      <SortArea isOpen={isOpen}>
         {sortingData.map((item, index) => {
           return (
             <OptionWrapper key={index}>
@@ -124,7 +110,12 @@ const Sorting = (props) => {
                 />
               )}
 
-              <OptionName>{item.name}</OptionName>
+              <OptionName
+                name={item.name}
+                count=""
+                showCount={false}
+                oneLine={false}
+              />
             </OptionWrapper>
           );
         })}
