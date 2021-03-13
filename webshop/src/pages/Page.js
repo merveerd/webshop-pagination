@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { device } from "../constants";
+import { Wrapper } from "../components/SharedStyledComponents";
 import {
   getCompaniesandTags,
   getPageDefaultItems,
@@ -28,16 +29,14 @@ import {
 import { totalPrice } from "../reducers/BasketReducer";
 import { currentPage, currentPageItems } from "../reducers/ItemsReducer";
 import { ITEM_TYPE, BRAND, TAG } from "../constants";
-const MainContainer = styled.div`
-  display: flex;
+const MainContainer = styled(Wrapper)`
   justify-content: center;
   flex-direction: row;
   margin-top: 2.5vw;
 `;
 
-const ProductSectionWrapper = styled.div`
+const ProductSectionWrapper = styled(Wrapper)`
   width: 44%;
-  display: flex;
   flex-direction: column;
   margin-left: 1.5%;
   margin-right: 1.5%;
@@ -46,9 +45,8 @@ const ProductSectionWrapper = styled.div`
   }
 `;
 
-const SelectionSectionWrapper = styled.div`
+const SelectionSectionWrapper = styled(Wrapper)`
   width: 20%;
-  display: flex;
   flex-direction: column;
   @media only screen and ${device.xs} {
   }

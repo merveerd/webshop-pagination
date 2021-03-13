@@ -1,10 +1,10 @@
 import React, { memo } from "react";
 import styled from "styled-components";
 import { device } from "../constants";
-const HeaderWrapper = styled.div`
+import { Wrapper } from "./SharedStyledComponents";
+const HeaderWrapper = styled(Wrapper)`
   width: 100%;
   height: 10vh;
-  display: flex;
   background-color: #1ea4ce;
   color: #ffffff;
 `;
@@ -17,11 +17,10 @@ const Title = styled.p`
   font-size: 2rem;
 `;
 
-const BasketPointer = styled.div`
+const BasketPointer = styled(Wrapper)`
   width: 10%;
   margin-left: 29%;
   background-color: #1b83a7;
-  display: flex;
   align-items: center;
   justify-content: center;
   font-family: Open Sans;

@@ -2,11 +2,11 @@ import React, { memo } from "react";
 import { AddButton } from "./AddButton";
 import styled from "styled-components";
 import { device } from "../../constants";
-const ProductWrapper = styled.div`
+import { Wrapper } from "../SharedStyledComponents";
+const ProductWrapper = styled(Wrapper)`
   width: 9vw;
   margin: 0.8rem;
   box-sizing: border-box;
-  display: flex;
   flex-direction: column;
   @media only screen and ${device.sm} {
     width: 6rem;
@@ -16,12 +16,11 @@ const ProductWrapper = styled.div`
   }
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled(Wrapper)`
   width: 9vw;
   height: 9vw;
   border: 1.2px solid #f3f0fe;
   border-radius: 0.6rem;
-  display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fefefe;

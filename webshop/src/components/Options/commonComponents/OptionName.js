@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { device } from "../../constants";
+import { device } from "../../../constants";
 
 const Name = styled.p`
   margin-left: 1rem;

@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-
 import { ItemType } from "./ItemType";
-const TypeContainer = styled.div`
+import { Wrapper } from "../SharedStyledComponents";
+const TypeContainer = styled(Wrapper)`
   margin-top: 0.4rem;
   margin-bottom: 0.4rem;
-  display: flex;
   flex-direction: row;
 `;
 

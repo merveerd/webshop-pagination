@@ -5,7 +5,7 @@ const Searchs = (props) => (
   <>
     <Search
       areaTitle="Brands"
-      placeholder=" Search Brand"
+      placeholder=" Search Brands"
       data={props.companies}
       currentChoice={props.brand}
       handleSearchSelection={props.handleBrandSearch}
@@ -13,7 +13,7 @@ const Searchs = (props) => (
     />
     <Search
       areaTitle="Tags"
-      placeholder=" Search Tag"
+      placeholder=" Search Tags"
       data={props.tags}
       currentChoice={props.tag}
       handleSearchSelection={props.handleTagSearch}

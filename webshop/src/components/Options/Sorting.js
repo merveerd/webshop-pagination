@@ -3,17 +3,17 @@ import styled from "styled-components";
 import { Icon } from "@iconify/react";
 import checkCircleOutlined from "@iconify-icons/ant-design/check-circle-outlined";
 import { device } from "../../constants";
-import { SelectionTitle } from "./SelectionTitle";
-import { OptionName } from "./OptionName";
-const SortWrapper = styled.div`
+import { SelectionTitle } from "./commonComponents/SelectionTitle";
+import { OptionName } from "./commonComponents/OptionName";
+import { Wrapper } from "../SharedStyledComponents";
+const SortWrapper = styled(Wrapper)`
   position: relative;
   width: 100%;
   height: 12.2rem;
   margin-bottom: 1.5rem;
-  display: flex;
 `;
 
-const SortArea = styled.div`
+const SortArea = styled(Wrapper)`
   position: absolute;
   width: 100%;
   height: 86%;
@@ -22,7 +22,6 @@ const SortArea = styled.div`
   border-radius: 0.15rem;
   box-shadow: 0px 6px 24px rgba(93, 62, 188, 0.04);
   background-color: #ffffff;
-  display: flex;
   flex-direction: column;
   justify-content: center;
 
@@ -32,10 +31,9 @@ const SortArea = styled.div`
   }
 `;
 
-const OptionWrapper = styled.div`
+const OptionWrapper = styled(Wrapper)`
   margin: 0.3rem;
   margin-left: 8%;
-  display: flex;
   flex-direction: row;
   align-items: center;
 `;

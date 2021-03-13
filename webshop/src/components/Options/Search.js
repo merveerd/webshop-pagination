@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { device } from "../../constants";
-import { SelectionTitle } from "./SelectionTitle";
-import { OptionName } from "./OptionName";
-const FilterWrapper = styled.div`
+import { SelectionTitle } from "./commonComponents/SelectionTitle";
+import { OptionName } from "./commonComponents/OptionName";
+import { Wrapper } from "../SharedStyledComponents";
+const FilterWrapper = styled(Wrapper)`
   position: relative;
-  display: flex;
   width: 100%;
   height: 16.3rem;
   margin-bottom: 1rem;
 `;
 
-const FilterMainArea = styled.div`
+const FilterMainArea = styled(Wrapper)`
   width: 100%;
   height: 90%;
   bottom: 0;
@@ -20,7 +20,6 @@ const FilterMainArea = styled.div`
   box-shadow: 0px 6px 24px rgba(93, 62, 188, 0.04);
   position: absolute;
   background-color: #ffffff;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   @media only screen and ${device.xs} {
