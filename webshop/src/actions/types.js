@@ -20,4 +20,4 @@ export const SELECTED_ITEMS_FAILED = "selected_items_failed";
 export const BASKET_ADD = "basket_add";
 export const BASKET_REDUCE = "basket_reduce";
 
-export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = "https://webshop-products.herokuapp.com/";
