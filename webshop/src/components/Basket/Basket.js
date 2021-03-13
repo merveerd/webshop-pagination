@@ -41,6 +41,9 @@ const TotalPrice = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  @media only screen and ${device.sm} {
+    font-size: 0.7rem;
+  }
 `;
 
 const Basket = (props) => {

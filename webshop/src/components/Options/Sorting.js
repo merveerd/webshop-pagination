@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Icon } from "@iconify/react";
-import checkCircleOutlined from "@iconify-icons/ant-design/check-circle-outlined";
 import { device } from "../../constants";
 import { SelectionTitle } from "./commonComponents/SelectionTitle";
 import { OptionName } from "./commonComponents/OptionName";
@@ -42,14 +40,21 @@ const OptionWrapper = styled(Wrapper)`
 const CheckBox = styled.button`
   height: 1.3rem;
   width: 1.3rem;
-  border: 0.13rem solid #dfdee2;
+  border: ${(p) =>
+    p.clicked === p.value
+      ? "0.13rem solid #1EA4CE"
+      : "0.13rem solid #dfdee2"}; 0.13rem solid #dfdee2;
   box-sizing: border-box;
   border-radius: 50%;
   cursor: pointer;
+  color: ${(p) => (p.clicked === p.value ? "#1EA4CE" : "#ffffff")};
   background: #ffffff;
   outline: none;
 `;
 
+const Tick = styled.p`
+  margin-left: -0.15rem;
+`;
 const sortingData = [
   { name: "Price low to high", type: "price", order: "asc" },
   { name: "Price high to low", type: "price", order: "desc" },
@@ -65,13 +70,13 @@ const Sorting = (props) => {
   const handleSelection = (e, index) => {
     let sortType;
     let sortOrder;
-    if (index === clicked) {
+    if (index.toString() === clicked) {
       setClicked("");
       sortType = "";
       sortOrder = "";
-      props.getPageDefaultItems(1);
+      !itemType && !brand && !tag && props.getPageDefaultItems(1);
     } else {
-      setClicked(index);
+      setClicked(index.toString());
       sortType = sortingData[index].type;
       sortOrder = sortingData[index].order;
       props.getSelectedItems({
@@ -96,19 +101,13 @@ const Sorting = (props) => {
         {sortingData.map((item, index) => {
           return (
             <OptionWrapper key={index}>
-              {clicked !== index ? (
-                <CheckBox
-                  value={index.toString()}
-                  onClick={(e) => handleSelection(e, index)}
-                />
-              ) : (
-                <Icon
-                  icon={checkCircleOutlined}
-                  color="#1ea4ce"
-                  height="1.3rem"
-                  onClick={(e) => handleSelection(e, index)}
-                />
-              )}
+              <CheckBox
+                value={index.toString()}
+                clicked={clicked}
+                onClick={(e) => handleSelection(e, index)}
+              >
+                <Tick>✓</Tick>
+              </CheckBox>
 
               <OptionName
                 name={item.name}

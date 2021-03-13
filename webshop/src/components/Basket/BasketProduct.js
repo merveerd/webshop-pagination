@@ -57,6 +57,7 @@ const QuantityEditButton = styled.div`
   width: 2rem;
   display: flex;
   justify-content: center;
+  ${font.white};
   ${bg.mainBlue};
   font-size: 1.4rem;
   &:hover {
