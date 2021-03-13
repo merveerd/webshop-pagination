@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { font, bg } from "../../style/sharedStyle";
 
 const ProductWrapper = styled.div`
   width: 85%;
@@ -23,7 +24,7 @@ const ProductName = styled.p`
 
 const ProductPrice = styled.p`
   display: flex;
-  color: #1ea4ce;
+  ${font.mainBlue}
   line-height: 1.1rem;
   letter-spacing: 0.16px;
   font-family: Open Sans;
@@ -42,8 +43,8 @@ const ProductQuantity = styled.p`
   width: 50%;
   padding: 0.2rem;
   margin: 0.4rem;
-  color: #ffffff;
-  background-color: #1ea4ce;
+  ${font.white}
+  ${bg.mainBlue};
   display: flex;
   justify-content: center;
   line-height: 20px;
@@ -56,7 +57,7 @@ const QuantityEditButton = styled.div`
   width: 2rem;
   display: flex;
   justify-content: center;
-  color: #1ea4ce;
+  ${bg.mainBlue};
   font-size: 1.4rem;
   &:hover {
     cursor: pointer;

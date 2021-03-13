@@ -4,6 +4,7 @@ import { device } from "../../constants";
 import { SelectionTitle } from "./commonComponents/SelectionTitle";
 import { OptionName } from "./commonComponents/OptionName";
 import { Wrapper } from "../SharedStyledComponents";
+import { font, bg } from "../../style/sharedStyle";
 const FilterWrapper = styled(Wrapper)`
   position: relative;
   width: 100%;
@@ -19,7 +20,7 @@ const FilterMainArea = styled(Wrapper)`
   border-radius: 0.15rem;
   box-shadow: 0px 6px 24px rgba(93, 62, 188, 0.04);
   position: absolute;
-  background-color: #ffffff;
+  ${bg.white};
   flex-direction: column;
   justify-content: center;
   @media only screen and ${device.xs} {
@@ -72,7 +73,7 @@ const CheckBox = styled.button`
   box-sizing: border-box;
   background-color: ${(props) =>
     props.currentChoice === props.value ? "#1EA4CE" : "#ffffff"};
-  color: #ffffff;
+  ${font.white}
   cursor: pointer;
   outline: none;
   font-size: 0.7rem;

@@ -3,6 +3,7 @@ import { AddButton } from "./AddButton";
 import styled from "styled-components";
 import { device } from "../../constants";
 import { Wrapper } from "../SharedStyledComponents";
+import { bg, font } from "../../style/sharedStyle";
 const ProductWrapper = styled(Wrapper)`
   width: 9vw;
   margin: 0.8rem;
@@ -23,7 +24,7 @@ const ImageContainer = styled(Wrapper)`
   border-radius: 0.6rem;
   justify-content: center;
   align-items: center;
-  background-color: #fefefe;
+  ${bg.lightGray};
   @media only screen and ${device.sm} {
     height: 6rem;
     width: 6rem;
@@ -37,12 +38,12 @@ const ImageContainer = styled(Wrapper)`
 const Image = styled.img`
   width: 75%;
   height: 75%;
-  background-color: #c4c4c4;
+  ${bg.darkGray};
 `;
 
 const Price = styled.p`
   margin: 4%;
-  color: #1ea4ce;
+  ${font.mainBlue};
   font-family: Helvetica;
   font-weight: 700;
   font-size: 0.9rem;
@@ -56,7 +57,9 @@ const Name = styled.p`
   width: 100%;
   height: 6.5vh;
   line-height: 125%;
+  font-family: "Open Sans";
   font-size: 0.9rem;
+  color: #191919;
   display: flex;
   @media only screen and ${device.sm} {
     font-size: 0.9rem;

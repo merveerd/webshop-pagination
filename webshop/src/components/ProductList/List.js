@@ -1,12 +1,12 @@
 import React, { memo } from "react";
 import { Product } from "./Product";
 import styled from "styled-components";
-
+import { bg } from "../../style/sharedStyle";
 const ListWrapper = styled.section`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  background-color: #fefefe;
+  ${bg.lightGray};
 `;
 const List = memo((props) => {
   return (

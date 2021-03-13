@@ -2,11 +2,12 @@ import React, { memo } from "react";
 import styled from "styled-components";
 import { device } from "../constants";
 import { Wrapper } from "./SharedStyledComponents";
+import { font, bg } from "../style/sharedStyle";
 const HeaderWrapper = styled(Wrapper)`
   width: 100%;
   height: 10vh;
-  background-color: #1ea4ce;
-  color: #ffffff;
+  ${bg.mainBlue};
+  ${font.white}
 `;
 
 const Title = styled.p`

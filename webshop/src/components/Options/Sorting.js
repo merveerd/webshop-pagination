@@ -6,6 +6,7 @@ import { device } from "../../constants";
 import { SelectionTitle } from "./commonComponents/SelectionTitle";
 import { OptionName } from "./commonComponents/OptionName";
 import { Wrapper } from "../SharedStyledComponents";
+import { bg } from "../../style/sharedStyle";
 const SortWrapper = styled(Wrapper)`
   position: relative;
   width: 100%;
@@ -21,7 +22,7 @@ const SortArea = styled(Wrapper)`
   box-sizing: border-box;
   border-radius: 0.15rem;
   box-shadow: 0px 6px 24px rgba(93, 62, 188, 0.04);
-  background-color: #ffffff;
+  ${bg.white};
   flex-direction: column;
   justify-content: center;
 
@@ -58,8 +59,9 @@ const sortingData = [
 
 const Sorting = (props) => {
   const [clicked, setClicked] = useState("");
-  const { itemType, brand, tag } = props;
   const [isOpen, setisOpen] = useState(""); //for mobile
+  const { itemType, brand, tag } = props;
+
   const handleSelection = (e, index) => {
     let sortType;
     let sortOrder;

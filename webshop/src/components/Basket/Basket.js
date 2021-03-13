@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { device } from "../../constants";
 import { BasketProduct } from "./BasketProduct";
+import { bg, font } from "../../style/sharedStyle";
 const BasketContainer = styled.div`
   position: relative;
   width: 20%;
@@ -9,7 +10,7 @@ const BasketContainer = styled.div`
   border: 0.45rem solid #1ea4ce;
   border-radius: 0.2rem;
   box-sizing: border-box;
-  background-color: #ffffff;
+  ${bg.white}
   display: flex;
   flex-direction: column;
   @media only screen and ${device.xs} {
@@ -20,7 +21,7 @@ const BasketContainer = styled.div`
 const BasketProductContainer = styled.div`
   position: relative;
   height: 13rem;
-  background-color: #ffffff;
+  ${bg.white};
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -34,8 +35,8 @@ const TotalPrice = styled.div`
   border-radius: 0.1rem;
   right: 5%;
   top: 80%;
-  background-color: #ffffff;
-  color: #1ea4ce;
+  ${bg.white};
+  ${font.mainBlue};
   display: flex;
   flex-direction: column;
   justify-content: center;
